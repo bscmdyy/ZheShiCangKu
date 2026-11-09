@@ -1,0 +1,141 @@
+plugins {
+    id 'eclipse'
+    id 'idea'
+    id 'net.minecraftforge.gradle' version '[6.0.24,6.2)'
+    id 'org.spongepowered.mixin' version '0.7.+'
+}
+
+version = mod_version
+group = mod_group_id
+
+base {
+    archivesName = mod_id
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+minecraft {
+    mappings channel: mapping_channel, version: mapping_version
+    copyIdeResources = true
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', mod_id
+            mods {
+                "${mod_id}" {
+                    source sourceSets.main
+                }
+            }
+        }
+        server {
+            workingDirectory project.file('run-server')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            args '--nogui'
+            mods {
+                "${mod_id}" {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+mixin {
+    add sourceSets.main, "${mod_id}.refmap.json"
+    config "${mod_id}.mixins.json"
+}
+
+repositories {
+    flatDir { dirs 'libs' }
+    maven { name = 'MinecraftForge'; url = 'https://maven.minecraftforge.net/' }
+    maven { name = 'Sponge'; url = 'https://repo.spongepowered.org/repository/maven-public/' }
+    maven { name = 'BlameJared'; url = 'https://maven.blamejared.com' }
+    mavenCentral()
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    compileOnly files('libs/superbwarfare-0.8.9.2.jar')
+
+    // 车万女仆 1.5.3-forge+mc1.20.1 (flatDir: libs/touhoulittlemaid-1.5.3.jar)
+    compileOnly fg.deobf('local:touhoulittlemaid:1.5.3')
+    runtimeOnly fg.deobf('local:touhoulittlemaid:1.5.3')
+
+    // GeckoLib 4.8.4 (flatDir: libs/geckolib-4.8.4.jar) — HAVOC armored vehicle
+    compileOnly fg.deobf('local:geckolib:4.8.4')
+    runtimeOnly fg.deobf('local:geckolib:4.8.4')
+
+
+
+
+}
+
+// TaCZ is optional. Drop a jar named tacz-*.jar / TACZ-*.jar into libs
+// to enable compile + dev-runtime testing; production does not bundle it.
+def taczJars = fileTree(dir: 'libs', include: ['tacz-*.jar', 'TACZ-*.jar'])
+if (!taczJars.isEmpty()) {
+    taczJars.files.each { taczJar ->
+        dependencies.add('compileOnly', fg.deobf(files(taczJar)))
+        dependencies.add('runtimeOnly', fg.deobf(files(taczJar)))
+    }
+}
+
+tasks.named('processResources', ProcessResources).configure {
+    var replaceProperties = [
+            minecraft_version      : minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            forge_version          : forge_version,
+            forge_version_range    : forge_version_range,
+            loader_version_range   : loader_version_range,
+            mod_id                 : mod_id,
+            mod_name               : mod_name,
+            mod_license            : mod_license,
+            mod_version            : mod_version,
+            mod_authors            : mod_authors,
+            mod_description        : mod_description
+    ]
+    inputs.properties replaceProperties
+    filteringCharset = 'UTF-8'
+
+    filesMatching(['pack.mcmeta']) {
+        expand replaceProperties
+    }
+}
+
+tasks.named('jar', Jar).configure {
+    manifest {
+        attributes([
+                'Specification-Title'     : mod_id,
+                'Specification-Vendor'    : mod_authors,
+                'Specification-Version'   : '1',
+                'Implementation-Title'    : project.name,
+                'Implementation-Version'  : project.jar.archiveVersion,
+                'Implementation-Vendor'   : mod_authors,
+                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                'MixinConfigs'            : "${mod_id}.mixins.json"
+        ])
+    }
+    finalizedBy 'reobfJar'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+// MixinGradle generates the refmap during annotation processing. If compileJava
+// is restored from the build cache, the generated refmap is not restored with
+// the classes and the production jar crashes with "No refMap loaded".
+// Disable cache/up-to-date for compilation so the refmap is always regenerated.
+tasks.named('compileJava', JavaCompile).configure {
+    outputs.cacheIf { false }
+    outputs.upToDateWhen { false }
+}
