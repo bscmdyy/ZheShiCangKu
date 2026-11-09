@@ -1,0 +1,28 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "com.tlmformation.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "tlmformation.refmap.json",
+  "mixins": [
+    "MaidFollowOwnerTaskMixin",
+    "MaidFollowOwnerVehicleTaskMixin",
+    "EntityMaidTeleportMixin",
+    "EntityMaidCombatRangeMixin",
+    "TaskAttackMixin",
+    "TaskBowAttackMixin",
+    "TaskCrossBowAttackMixin",
+    "TaskTridentAttackMixin",
+    "TaskDanmakuAttackMixin",
+    "BehaviorUtilsMixin",
+    "LookAtTargetSinkMixin",
+    "MaidContainerStillValidMixin"
+  ],
+  "client": [
+    "MouseHandlerMixin",
+    "EntityMaidHeliSeatMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 0
+  }
+}
