@@ -1,0 +1,30 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "rotor_spin": {
+      "loop": true,
+      "animation_length": 1.0,
+      "bones": {
+        "rotate_blades": {"rotation": {"0.0": [0, 0, 0], "1.0": [0, 360, 0]}},
+        "blades": {"rotation": {"0.0": [0, 0, 0], "1.0": [0, 360, 0]}},
+        "tail": {"rotation": {"0.0": [0, 0, 0], "1.0": [360, 0, 0]}}
+      }
+    },
+    "door_open": {
+      "loop": false,
+      "animation_length": 1.2,
+      "bones": {
+        "Slidedoor7": {"position": {"0.0": [0, 0, 0], "1.2": [38, 0, 0]}},
+        "Slidedoor8": {"position": {"0.0": [0, 0, 0], "1.2": [36, 0, 0]}}
+      }
+    },
+    "door_close": {
+      "loop": false,
+      "animation_length": 1.2,
+      "bones": {
+        "Slidedoor7": {"position": {"0.0": [38, 0, 0], "1.2": [0, 0, 0]}},
+        "Slidedoor8": {"position": {"0.0": [36, 0, 0], "1.2": [0, 0, 0]}}
+      }
+    }
+  }
+}
