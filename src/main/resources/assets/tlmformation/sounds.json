@@ -1,0 +1,93 @@
+{
+  "havoc.drive": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "tlmformation:havoc/drive_loop",
+        "stream": true,
+        "attenuation_distance": 64
+      }
+    ]
+  },
+  "havoc.idle": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "tlmformation:havoc/idle_loop",
+        "stream": true,
+        "attenuation_distance": 48
+      }
+    ]
+  },
+  "havoc.turret_rotate": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "tlmformation:havoc/turret_rotate_loop",
+        "stream": true,
+        "attenuation_distance": 32
+      }
+    ]
+  },
+  "havoc.turret_stop": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "tlmformation:havoc/turret_stop",
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "havoc.hit_metal": {
+    "category": "hostile",
+    "sounds": [
+      {
+        "name": "tlmformation:havoc/hit_metal_3",
+        "attenuation_distance": 32
+      }
+    ]
+  },
+  "havoc.autocannon_single": {
+    "category": "hostile",
+    "sounds": [
+      {
+        "name": "tlmformation:havoc/autocannon_single",
+        "attenuation_distance": 64
+      }
+    ]
+  },
+  "radio.click": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "tlmformation:radio/click"
+      }
+    ]
+  },
+  "radio.beep": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "tlmformation:radio/beep"
+      }
+    ]
+  },
+  "heli.engine": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "tlmformation:heli/engine_loop",
+        "attenuation_distance": 384
+      }
+    ]
+  },
+  "heli.engine_start": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "tlmformation:heli/engine_start",
+        "attenuation_distance": 384
+      }
+    ]
+  }
+}
