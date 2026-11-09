@@ -1,0 +1,52 @@
+modLoader = "javafml"
+loaderVersion = "[47,)"
+license = "GNU General Public License v3.0"
+
+[[mods]]
+modId = "tlmformation"
+version = "9.3"
+displayName = "\u8f66\u4e07\u5973\u4ec6\uff1a\u529f\u80fd\u5c0f\u961f"
+authors = "cmdyy"
+logoFile = "icon.png"
+description = "\u8f66\u4e07\u5973\u4ec6\u6269\u5c55\uff1a\u5973\u4ec6\u961f\u4f0d\u7ba1\u7406\u3001\u6218\u672f\u6307\u4ee4\u8f6e\u76d8\u3001\u96c6\u56e2\u4f53\u9635\u578b\u4e0e\u636e\u70b9\u8c03\u5ea6\u3002"
+# 联机时要求两端 tlmformation 版本一致（否则拒绝连接，而不是进服后各种字段错位）
+displayTest = "MATCH_VERSION"
+
+[[dependencies.tlmformation]]
+modId = "forge"
+mandatory = true
+versionRange = "[47,48)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.tlmformation]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20.1,1.20.2)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.tlmformation]]
+modId = "touhou_little_maid"
+mandatory = true
+# 只保证已在 1.5.3 上验证过；1.6+ 可能改动 mixin 目标方法，收紧上限避免启动崩溃
+versionRange = "[1.5.3,1.6)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.tlmformation]]
+modId = "geckolib"
+mandatory = true
+# 编译期绑定的是 4.8.x 渲染/动画 API
+versionRange = "[4.8,4.9)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.tlmformation]]
+modId = "superbwarfare"
+# 强前置：空投/索降/回收是模组核心内容，缺了它整套流程都不完整。
+# 版本上限收紧到已在 0.8.9.x 上验证过的范围，避免 0.9+ 启动崩溃。
+mandatory = true
+versionRange = "[0.8.9,0.9)"
+ordering = "AFTER"
+side = "BOTH"
