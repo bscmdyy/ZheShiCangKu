@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NRN",
+    "KDK",
+    "NRK"
+  ],
+  "key": {
+    "N": {
+      "item": "minecraft:iron_nugget"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "D": {
+      "item": "minecraft:dispenser"
+    },
+    "K": {
+      "item": "minecraft:observer"
+    }
+  },
+  "result": {
+    "item": "tlmformation:walkie_talkie",
+    "count": 1
+  }
+}
